@@ -36,31 +36,6 @@ def dropForeignKey( conn, table) :
         # Execute the sql statement
         cur.execute( stmt )
 
-# Drop table table_name
-def dropForeignKeyOld( conn, table_name, foreign_keys_list) :
-
-    stmt = "";
-    for foreign_key in foreign_keys_list :
-        if foreign_keys_list[foreign_key] != "" :
-            stmt = stmt + "set @var=if((SELECT true FROM information_schema.TABLE_CONSTRAINTS ";
-            stmt = stmt + "WHERE CONSTRAINT_SCHEMA = DATABASE() AND ";
-            stmt = stmt + "TABLE_NAME = '" + table_name + "' AND ";
-            stmt = stmt + "CONSTRAINT_NAME = '" + foreign_keys_list[foreign_key] + "' AND ";
-            stmt = stmt + "CONSTRAINT_TYPE = 'FOREIGN KEY') = true,'ALTER TABLE " + table_name + " ";
-            stmt = stmt + "drop foreign key " + foreign_keys_list[foreign_key] + "','select 1'); ";
-            stmt = stmt + "prepare stmt from @var; ";
-            stmt = stmt + "execute stmt; ";
-            stmt = stmt + "deallocate prepare stmt; ";
-            #stmt = stmt + "system echo 'Drop " + foreign_keys_list[foreign_key] + " done...'; ";
-    
-    print(stmt)
-
-    if stmt != "" :
-        # Initiate the cursor on the connection
-        cur = conn.cursor()
-        # Execute the sql statement
-        cur.execute( stmt )
-
 # Drop table 'table'
 def dropTable( conn, table ) :
     
@@ -75,23 +50,14 @@ def dropTable( conn, table ) :
     # Execute the sql statement
     cur.execute( stmt )
 
-# Drop table table_name
-def dropTableOld( conn, table_name ) :
-    
-    stmt = "DROP TABLE IF EXISTS `" + table_name + "`;"
-    
-    print(stmt)
-    
-    # DROP TABLE IF EXISTS `Geo_area_type`;
-
-    # Initiate the cursor on the connection
-    cur = conn.cursor()
-    # Execute the sql statement
-    cur.execute( stmt )
-
 print("Using pymysql…")
 import pymysql
 myConnection = pymysql.connect( host=hostname, user=username, passwd=password, db=database )
+
+# Drop foreign key on table 'Transaction'
+dropForeignKey( myConnection, table_transaction )
+# Create table 'Transaction'
+dropTable( myConnection, table_transaction )
 
 # Drop foreign key on table 'Customer'
 dropForeignKey( myConnection, table_customer )
@@ -142,10 +108,5 @@ dropTable( myConnection, table_distributor )
 dropForeignKey( myConnection, table_channel )
 # Create table 'Channel'
 dropTable( myConnection, table_channel )
-
-# Drop foreign key on table 'Transaction'
-dropForeignKey( myConnection, table_transaction )
-# Create table 'Transaction'
-dropTable( myConnection, table_transaction )
 
 myConnection.close()
