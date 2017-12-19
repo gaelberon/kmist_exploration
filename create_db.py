@@ -9,7 +9,8 @@ Created on Fri Dec 15 10:54:43 2017
 #############################
 ## DATABASE TABLES AND FIELDS
 ## 
-import db_definition
+import db_definition as db_def
+import connect_db as db_con
 
 # Create table 'table'
 def createTable( conn, table ) :
@@ -95,61 +96,81 @@ def createForeignKey( conn, table ) :
 
 print("Using pymysql…")
 import pymysql
-myConnection = pymysql.connect( host=hostname, user=username, passwd=password, db=database )
+myConnection = pymysql.connect( host=db_def.hostname, user=db_def.username,
+                                passwd=db_def.password, db=db_def.database )
 
 # Create table 'Geo_area_type'
-createTable( myConnection, table_geo_area_type )
+createTable( myConnection, db_def.table_geo_area_type )
 # Create foreign key for table 'Geo_area_type'
-createForeignKey( myConnection, table_geo_area_type )
+createForeignKey( myConnection, db_def.table_geo_area_type )
 
 # Create table 'Geographique_area'
-createTable( myConnection, table_geo_area )
+createTable( myConnection, db_def.table_geo_area )
 # Create foreign key for table 'Geographique_area'
-createForeignKey( myConnection, table_geo_area )
+createForeignKey( myConnection, db_def.table_geo_area )
 
 # Create table 'Geo_area_list'
-createTable( myConnection, table_geo_area_list )
+createTable( myConnection, db_def.table_geo_area_list )
 # Create foreign key for table 'Geo_area_list'
-createForeignKey( myConnection, table_geo_area_list )
+createForeignKey( myConnection, db_def.table_geo_area_list )
 
 # Create table 'Customer_type'
-createTable( myConnection, table_cust_type )
+createTable( myConnection, db_def.table_cust_type )
 # Create foreign key for table 'Customer_type'
-createForeignKey( myConnection, table_cust_type )
+createForeignKey( myConnection, db_def.table_cust_type )
 
 # Create table 'Customer'
-createTable( myConnection, table_customer )
+createTable( myConnection, db_def.table_customer )
 # Create foreign key for table 'Customer'
-createForeignKey( myConnection, table_customer )
+createForeignKey( myConnection, db_def.table_customer )
 
 # Create table 'ATC'
-createTable( myConnection, table_atc )
+createTable( myConnection, db_def.table_atc )
 # Create foreign key for table 'ATC'
-createForeignKey( myConnection, table_atc )
+createForeignKey( myConnection, db_def.table_atc )
 
 # Create table 'Manufacturer'
-createTable( myConnection, table_manufacturer )
+createTable( myConnection, db_def.table_manufacturer )
 # Create foreign key for table 'Manufacturer'
-createForeignKey( myConnection, table_manufacturer )
+createForeignKey( myConnection, db_def.table_manufacturer )
 
 # Create table 'Product'
-createTable( myConnection, table_product )
+createTable( myConnection, db_def.table_product )
 # Create foreign key for table 'Product'
-createForeignKey( myConnection, table_product )
+createForeignKey( myConnection, db_def.table_product )
 
 # Create table 'Distributor'
-createTable( myConnection, table_distributor )
+createTable( myConnection, db_def.table_distributor )
 # Create foreign key for table 'Distributor'
-createForeignKey( myConnection, table_distributor )
+createForeignKey( myConnection, db_def.table_distributor )
 
 # Create table 'Channel'
-createTable( myConnection, table_channel )
+createTable( myConnection, db_def.table_channel )
 # Create foreign key for table 'Channel'
-createForeignKey( myConnection, table_channel )
+createForeignKey( myConnection, db_def.table_channel )
 
 # Create table 'Transaction'
-createTable( myConnection, table_transaction )
+createTable( myConnection, db_def.table_transaction )
 # Create foreign key for table 'Transaction'
-createForeignKey( myConnection, table_transaction )
+createForeignKey( myConnection, db_def.table_transaction )
+
+
+##################################
+## Load the user referential (customer type, etc.)
+##
+
+db_con.createNewEntriesInTableNoPK( myConnection, db_def.table_cust_type_name,
+                                    [db_def.field_cust_type_name],
+                                    [db_def.key_cust_type_pharmacy] )
+
+#selectFromTable( myConnection, [field_geo_a_t_id, field_geo_a_t_name], table_geo_area_type_name )
+
+#myConnection.close()
+
+#print("Using mysql.connector…")
+#import mysql.connector
+#myConnection = mysql.connector.connect( host=hostname, user=username, passwd=password, db=database )
+#doQuery( myConnection )
+#myConnection.close()
 
 myConnection.close()

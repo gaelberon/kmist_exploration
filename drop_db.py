@@ -9,7 +9,7 @@ Created on Fri Dec 15 13:16:08 2017
 #############################
 ## DATABASE TABLES AND FIELDS
 ## 
-import db_definition
+import db_definition as db_def
 
 # Drop table table_name
 def dropForeignKey( conn, table) :
@@ -52,61 +52,62 @@ def dropTable( conn, table ) :
 
 print("Using pymysql…")
 import pymysql
-myConnection = pymysql.connect( host=hostname, user=username, passwd=password, db=database )
+myConnection = pymysql.connect( host=db_def.hostname, user=db_def.username,
+                               passwd=db_def.password, db=db_def.database )
 
 # Drop foreign key on table 'Transaction'
-dropForeignKey( myConnection, table_transaction )
+dropForeignKey( myConnection, db_def.table_transaction )
 # Create table 'Transaction'
-dropTable( myConnection, table_transaction )
+dropTable( myConnection, db_def.table_transaction )
 
 # Drop foreign key on table 'Customer'
-dropForeignKey( myConnection, table_customer )
+dropForeignKey( myConnection, db_def.table_customer )
 # Create table 'Customer'
-dropTable( myConnection, table_customer )
+dropTable( myConnection, db_def.table_customer )
 
 # Drop foreign key on table 'Customer_type'
-dropForeignKey( myConnection, table_cust_type )
+dropForeignKey( myConnection, db_def.table_cust_type )
 # Create table 'Customer_type'
-dropTable( myConnection, table_cust_type )
+dropTable( myConnection, db_def.table_cust_type )
 
 # Drop foreign key on table 'Geo_area_list'
-dropForeignKey( myConnection, table_geo_area_list )
+dropForeignKey( myConnection, db_def.table_geo_area_list )
 # Create table 'Geo_area_list'
-dropTable( myConnection, table_geo_area_list )
+dropTable( myConnection, db_def.table_geo_area_list )
 
 # Drop foreign key on table 'Geographic_area'
-dropForeignKey( myConnection, table_geo_area )
+dropForeignKey( myConnection, db_def.table_geo_area )
 # Create table 'Geographic_area'
-dropTable( myConnection, table_geo_area )
+dropTable( myConnection, db_def.table_geo_area )
 
 # Drop foreign key on table 'Geo_area_type'
-dropForeignKey( myConnection, table_geo_area_type )
+dropForeignKey( myConnection, db_def.table_geo_area_type )
 # Create table 'Geo_area_type'
-dropTable( myConnection, table_geo_area_type )
+dropTable( myConnection, db_def.table_geo_area_type )
 
 # Drop foreign key on table 'Product'
-dropForeignKey( myConnection, table_product )
+dropForeignKey( myConnection, db_def.table_product )
 # Create table 'Product'
-dropTable( myConnection, table_product )
+dropTable( myConnection, db_def.table_product )
 
 # Drop foreign key on table 'ATC'
-dropForeignKey( myConnection, table_atc )
+dropForeignKey( myConnection, db_def.table_atc )
 # Create table 'ATC'
-dropTable( myConnection, table_atc )
+dropTable( myConnection, db_def.table_atc )
 
 # Drop foreign key on table 'Manufacturer'
-dropForeignKey( myConnection, table_manufacturer )
+dropForeignKey( myConnection, db_def.table_manufacturer )
 # Create table 'Manufacturer'
-dropTable( myConnection, table_manufacturer )
+dropTable( myConnection, db_def.table_manufacturer )
 
 # Drop foreign key on table 'Distributor'
-dropForeignKey( myConnection, table_distributor )
+dropForeignKey( myConnection, db_def.table_distributor )
 # Create table 'Distributor'
-dropTable( myConnection, table_distributor )
+dropTable( myConnection, db_def.table_distributor )
 
 # Drop foreign key on table 'Channel'
-dropForeignKey( myConnection, table_channel )
+dropForeignKey( myConnection, db_def.table_channel )
 # Create table 'Channel'
-dropTable( myConnection, table_channel )
+dropTable( myConnection, db_def.table_channel )
 
 myConnection.close()
