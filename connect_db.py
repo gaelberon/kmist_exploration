@@ -10,6 +10,7 @@ Created on Fri Dec 14 14:45:32 2017
 ## DATABASE TABLES AND FIELDS
 ## 
 import db_definition as db_def
+import numpy as np
 
 # Create new entry into table table_name without primary key
 def createNewEntriesInTableNoPK( conn, table_name, fields_names_list, values_names_list ) :
@@ -17,20 +18,44 @@ def createNewEntriesInTableNoPK( conn, table_name, fields_names_list, values_nam
 
 # Create new entry into table table_name
 def createNewEntriesInTable( conn, table_name, fields_names_list, values_names_list ) :
-    # Build the list of fields to be populated in the table
+    # Build the lists of fields and values to be populated in the table
     fields = ""
-    for field_name in fields_names_list :
-        if fields == "" :
-            fields = field_name
-        else :
-            fields = fields + ", " + field_name
-    # Build the list of values to be populated in the table
     values = ""
-    for value_name in values_names_list :
-        if values == "" :
-            values = "'" + value_name + "'"
-        else :
-            values = values + ", " + "'" + value_name + "'"
+    for i in range(len(fields_names_list)):
+        field_name = fields_names_list[i]
+        value_name = values_names_list[i]
+        
+        #if (value_name == "nan"):
+        #    value_name = ""
+            
+        if ( value_name != np.NAN and value_name != np.nan and
+             value_name != np.NaN and str(value_name) != "nan" and
+             str(value_name) != "") :
+            #print("value_name: " + str(value_name))
+            if fields == "" :
+                fields = field_name
+            else :
+                fields = fields + ", " + field_name
+            if values == "" :
+                values = "'" + str(value_name) + "'"
+            else :
+                values = values + ", " + "'" + str(value_name) + "'"
+        #else :
+            #print("Value is null, NaN or empty for field name: " + field_name)
+
+#    for field_name in fields_names_list :
+#        if fields == "" :
+#            fields = field_name
+#        else :
+#            fields = fields + ", " + field_name
+#    for value_name in values_names_list :
+#        if (value_name == "nan"):
+#            value_name = ""
+#        if values == "" :
+#            values = "'" + str(value_name) + "'"
+#        else :
+#            values = values + ", " + "'" + str(value_name) + "'"
+    
     # Build the sql statement for inserting values in the table
     stmt = "INSERT INTO {0} ({1}) \
                      VALUES ({2});".format(table_name,
@@ -97,10 +122,15 @@ def selectFromTableWithClauses( conn, fields_names_list, table_name,
     print(stmt)
     
     cur.execute( stmt )
-
-#    for field1, field2 in cur.fetchall() :
-#        print(field1, field2)
-    return(cur.fetchall())
+    result_set = cur.fetchall()
+    
+    #result_list = {}
+    #for row in result_set :
+    #    for field_name in fields_names_list :
+    #        print("%s" % (row[field_name]))
+    #        #result_list[field_name] = row[field_name]
+    
+    return(result_set)
 
 #print("Using MySQLdb…")
 #import MySQLdb

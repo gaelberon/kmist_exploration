@@ -213,14 +213,31 @@ myConnection = pymysql.connect( host=db_def.hostname, user=db_def.username,
                                 passwd=db_def.password, db=db_def.database )
 
 print("Taille de ma liste: " + str(len([db_def.field_cust_type_name])))
-cust_type_pharma_id = db_con.selectFromTableWithClauses( myConnection,
+cust_type_pharma_id_result_set = db_con.selectFromTableWithClauses( myConnection,
                                                            [db_def.field_cust_type_id],
                                                            db_def.table_cust_type_name,
                                                            [db_def.field_cust_type_name],
                                                            [db_def.key_cust_type_pharmacy])
+#cust_type_pharma_id = cust_type_pharma_id_result_set[db_def.field_cust_type_id]
 
-#for tx_idx in range(len(df_pop.index)) :
-for tx_idx in range(100) :
+cust_type_pharma_id = cust_type_pharma_id_result_set[0][0]
+#cust_type_pharma_id = ""
+#for row in cust_type_pharma_id_result_set :
+#    cust_type_pharma_id = row[db_def.field_cust_type_id]
+
+print("cust_type_pharma_id: " + str(cust_type_pharma_id))
+
+df_pharmacies = df_pop[[pop_col_pharmacy_id, pop_col_city_aggregated]].drop_duplicates()
+#df_phamarcies = np.unique(df_pop[[pop_col_pharmacy_id, pop_col_city_aggregated]], axis=0)
+#df_phamarcies = pd.concat(df_pop[pop_col_pharmacy_id], df_pop[pop_col_city_aggregated]).unique()
+
+#df_pharmacies = df_pharmacies.reindex(range(len(df_pharmacies)))
+df_pharmacies = df_pharmacies.reset_index()
+
+print(df_pharmacies.head(20))
+
+for tx_idx in range(len(df_pharmacies.index)) :
+#for tx_idx in range(100) :
 #    db_con.createNewEntriesInTableNoPK( myConnection, db_def.table_geo_area_type_name,
 #                                        [db_def.field_geo_area_type_name],
 #                                        ['DA NANG'] )  
@@ -229,18 +246,24 @@ for tx_idx in range(100) :
 #                            [db_def.field_geo_area_type_id, db_def.table_geo_area_type_name],
 #                            db_def.table_geo_area_type_name )
     
+    #print("index tx_idx: " + str(tx_idx))
+    #print("Field qui pose probleme: " + str(df_pop.at[tx_idx, pop_col_pharmacy_id]))
+    #print("Field qui pose probleme: " + df_pop.iloc[tx_idx][pop_col_pharmacy_id])
+    
     db_con.createNewEntriesInTableNoPK( myConnection, db_def.table_customer_name,
                                         [db_def.field_sanisphere_id,
                                          db_def.field_pfizer_id,
                                          db_def.field_sanofi_id,
                                          db_def.field_cust_name,
+                                         db_def.field_cust_city,
                                          db_def.field_cust_fk_geo_area_list_id,
                                          db_def.field_cust_fk_cust_type_id],
-                                        [df_pop.loc[tx_idx][pop_col_pharmacy_id],
-                                         np.NaN,
-                                         np.NaN,
+                                        [str(df_pharmacies.at[tx_idx, pop_col_pharmacy_id]),
+                                         np.NaN,#str(df_pop.at[tx_idx, pop_col_pfizer]),
+                                         np.NaN,#str(df_pop.at[tx_idx, pop_col_sanofi]),
                                          "test_" + str(tx_idx),
+                                         str(df_pharmacies.at[tx_idx, pop_col_city_aggregated]),
                                          np.NaN,
-                                         cust_type_pharma_id])  
+                                         cust_type_pharma_id])
 
 myConnection.close()

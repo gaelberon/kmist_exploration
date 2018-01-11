@@ -97,7 +97,8 @@ def createForeignKey( conn, table ) :
 print("Using pymysql…")
 import pymysql
 myConnection = pymysql.connect( host=db_def.hostname, user=db_def.username,
-                                passwd=db_def.password, db=db_def.database )
+                                passwd=db_def.password, db=db_def.database,
+                                connect_timeout=10 )
 
 # Create table 'Geo_area_type'
 createTable( myConnection, db_def.table_geo_area_type )

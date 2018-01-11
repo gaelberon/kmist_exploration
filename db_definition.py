@@ -65,6 +65,7 @@ field_sanisphere_id = 'sanisphere_id'
 field_pfizer_id = 'pfizer_id'
 field_sanofi_id = 'sanofi_id'
 field_cust_name = 'cust_char_name'
+field_cust_city = 'cust_char_city'
 field_cust_fk_geo_area_list_id = 'geo_area_list_id'
 field_cust_fk_cust_type_id = 'cust_type_id'
 
@@ -255,6 +256,7 @@ table_customer.fields.append(field_sanisphere_id)
 table_customer.fields.append(field_pfizer_id)
 table_customer.fields.append(field_sanofi_id)
 table_customer.fields.append(field_cust_name)
+table_customer.fields.append(field_cust_city)
 table_customer.fields.append(field_cust_fk_geo_area_list_id)
 table_customer.fields.append(field_cust_fk_cust_type_id)
 
@@ -263,6 +265,7 @@ table_customer.fields_class[field_sanisphere_id] = primary_keys_class
 table_customer.fields_class[field_pfizer_id] = primary_keys_class
 table_customer.fields_class[field_sanofi_id] = primary_keys_class
 table_customer.fields_class[field_cust_name] = 'char'
+table_customer.fields_class[field_cust_city] = 'char'
 table_customer.fields_class[field_cust_fk_geo_area_list_id] = primary_keys_class
 table_customer.fields_class[field_cust_fk_cust_type_id] = primary_keys_class
 
@@ -271,6 +274,7 @@ table_customer.fields_size[field_sanisphere_id] = primary_keys_size
 table_customer.fields_size[field_pfizer_id] = primary_keys_size
 table_customer.fields_size[field_sanofi_id] = primary_keys_size
 table_customer.fields_size[field_cust_name] = stantard_char_size
+table_customer.fields_size[field_cust_city] = stantard_char_size
 table_customer.fields_size[field_cust_fk_geo_area_list_id] = primary_keys_size
 table_customer.fields_size[field_cust_fk_cust_type_id] = primary_keys_size
 
@@ -279,14 +283,16 @@ table_customer.fields_not_null[field_sanisphere_id] = 0
 table_customer.fields_not_null[field_pfizer_id] = 0
 table_customer.fields_not_null[field_sanofi_id] = 0
 table_customer.fields_not_null[field_cust_name] = 1
+table_customer.fields_not_null[field_cust_city] = 0
 table_customer.fields_not_null[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_not_null[field_cust_fk_cust_type_id] = 1
 
 table_customer.fields_unique[field_cust_id] = 1
-table_customer.fields_unique[field_sanisphere_id] = 1
-table_customer.fields_unique[field_pfizer_id] = 1
-table_customer.fields_unique[field_sanofi_id] = 1
+table_customer.fields_unique[field_sanisphere_id] = 0
+table_customer.fields_unique[field_pfizer_id] = 0
+table_customer.fields_unique[field_sanofi_id] = 0
 table_customer.fields_unique[field_cust_name] = 0
+table_customer.fields_unique[field_cust_city] = 0
 table_customer.fields_unique[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_unique[field_cust_fk_cust_type_id] = 0
 
@@ -295,6 +301,7 @@ table_customer.fields_auto_increment[field_sanisphere_id] = 0
 table_customer.fields_auto_increment[field_pfizer_id] = 0
 table_customer.fields_auto_increment[field_sanofi_id] = 0
 table_customer.fields_auto_increment[field_cust_name] = 0
+table_customer.fields_auto_increment[field_cust_city] = 0
 table_customer.fields_auto_increment[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_auto_increment[field_cust_fk_cust_type_id] = 0
 
@@ -303,6 +310,7 @@ table_customer.fields_primary_key[field_sanisphere_id] = 0
 table_customer.fields_primary_key[field_pfizer_id] = 0
 table_customer.fields_primary_key[field_sanofi_id] = 0
 table_customer.fields_primary_key[field_cust_name] = 0
+table_customer.fields_primary_key[field_cust_city] = 0
 table_customer.fields_primary_key[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_primary_key[field_cust_fk_cust_type_id] = 0
 
@@ -311,6 +319,7 @@ table_customer.foreign_keys[field_sanisphere_id] = ''
 table_customer.foreign_keys[field_pfizer_id] = ''
 table_customer.foreign_keys[field_sanofi_id] = ''
 table_customer.foreign_keys[field_cust_name] = ''
+table_customer.foreign_keys[field_cust_city] = ''
 table_customer.foreign_keys[field_cust_fk_geo_area_list_id] = 'customer_fk_geo_area_list_id'
 table_customer.foreign_keys[field_cust_fk_cust_type_id] = 'customer_fk_cust_type_id'
 
@@ -319,6 +328,7 @@ table_customer.fk_tables[field_sanisphere_id] = ''
 table_customer.fk_tables[field_pfizer_id] = ''
 table_customer.fk_tables[field_sanofi_id] = ''
 table_customer.fk_tables[field_cust_name] = ''
+table_customer.fk_tables[field_cust_city] = ''
 table_customer.fk_tables[field_cust_fk_geo_area_list_id] = table_geo_area_list_name
 table_customer.fk_tables[field_cust_fk_cust_type_id] = table_cust_type_name
 
@@ -327,6 +337,7 @@ table_customer.fk_external_references[field_sanisphere_id] = ''
 table_customer.fk_external_references[field_pfizer_id] = ''
 table_customer.fk_external_references[field_sanofi_id] = ''
 table_customer.fk_external_references[field_cust_name] = ''
+table_customer.fk_external_references[field_cust_city] = ''
 table_customer.fk_external_references[field_cust_fk_geo_area_list_id] = field_geo_area_list_id
 table_customer.fk_external_references[field_cust_fk_cust_type_id] = field_cust_type_id
 
