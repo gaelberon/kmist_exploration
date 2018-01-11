@@ -61,6 +61,9 @@ def createNewEntriesInTable( conn, table_name, fields_names_list, values_names_l
                      VALUES ({2});".format(table_name,
                                              fields,
                                              values)
+                     
+    print(stmt)
+    
     # Initiate the cursor on the connection
     cur = conn.cursor()
     # Execute the sql statement
@@ -70,8 +73,7 @@ def createNewEntriesInTable( conn, table_name, fields_names_list, values_names_l
 
 # Select values of 'fields_names_list' from 'table_name'
 def selectFromTable( conn, fields_names_list, table_name ) :
-    cur = conn.cursor()
-
+    
     # Build the list of fields to be populated in the table
     fields = ""
     for field_name in fields_names_list :
@@ -83,17 +85,24 @@ def selectFromTable( conn, fields_names_list, table_name ) :
     # Build the sql statement for inserting values in the table
     stmt = "SELECT {0} FROM {1}".format(fields, table_name)
     
+    print(stmt)
+    
+    # Initiate the cursor on the connection
+    cur = conn.cursor()
+    # Execute the sql statement
     cur.execute( stmt )
+    result_set = cur.fetchall()
 
-    for field1, field2 in cur.fetchall() :
-        print(field1, field2)
+    #for field1, field2 in cur.fetchall() :
+    #    print(field1, field2)
 
+    return(result_set)
+    
 # Select values of 'fields_names_list' from 'table_name'
 def selectFromTableWithClauses( conn, fields_names_list, table_name,
                                 where_fields_names_list,
                                 where_fields_values_list) :
-    cur = conn.cursor()
-
+    
     # Build the list of fields to be populated in the table
     fields = ""
     for field_name in fields_names_list :
@@ -121,6 +130,9 @@ def selectFromTableWithClauses( conn, fields_names_list, table_name,
     
     print(stmt)
     
+    # Initiate the cursor on the connection
+    cur = conn.cursor()
+    # Execute the sql statement
     cur.execute( stmt )
     result_set = cur.fetchall()
     

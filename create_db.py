@@ -125,6 +125,11 @@ createTable( myConnection, db_def.table_customer )
 # Create foreign key for table 'Customer'
 createForeignKey( myConnection, db_def.table_customer )
 
+# Create table 'Customer_matching'
+createTable( myConnection, db_def.table_cust_match )
+# Create foreign key for table 'Customer_matching'
+createForeignKey( myConnection, db_def.table_cust_match )
+
 # Create table 'ATC'
 createTable( myConnection, db_def.table_atc )
 # Create foreign key for table 'ATC'

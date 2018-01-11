@@ -60,6 +60,11 @@ dropForeignKey( myConnection, db_def.table_transaction )
 # Create table 'Transaction'
 dropTable( myConnection, db_def.table_transaction )
 
+# Drop foreign key on table 'Customer_matching'
+dropForeignKey( myConnection, db_def.table_cust_match )
+# Create table 'Customer_matching'
+dropTable( myConnection, db_def.table_cust_match )
+
 # Drop foreign key on table 'Customer'
 dropForeignKey( myConnection, db_def.table_customer )
 # Create table 'Customer'
