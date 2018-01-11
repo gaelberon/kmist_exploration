@@ -67,8 +67,18 @@ field_cust_match_sanofi_id = 'sanofi_id'
 
 table_customer_name = 'Customer'
 field_cust_id = 'cust_id'
+field_cust_code_zpv = 'cust_char_code_zpv'
 field_cust_name = 'cust_char_name'
-field_cust_city = 'cust_char_city'
+field_cust_address = 'cust_char_address'
+# Address fields
+field_cust_add_nb = 'cust_int_add_nb'
+field_cust_add_street = 'cust_char_add_street'
+field_cust_add_ward = 'cust_char_add_ward'
+field_cust_add_district = 'cust_char_add_district'
+#field_cust_city = 'cust_char_city'
+field_cust_add_city = 'cust_char_add_city'
+field_cust_add_area = 'cust_char_add_area'
+field_cust_add_state = 'cust_char_add_state'
 field_cust_fk_geo_area_list_id = 'geo_area_list_id'
 field_cust_fk_cust_type_id = 'cust_type_id'
 
@@ -310,61 +320,141 @@ table_customer.name = table_customer_name
 
 table_customer.fields.append(field_cust_id)
 table_customer.fields.append(field_cust_name)
-table_customer.fields.append(field_cust_city)
+table_customer.fields.append(field_cust_address)
+table_customer.fields.append(field_cust_add_nb)
+table_customer.fields.append(field_cust_add_street)
+table_customer.fields.append(field_cust_add_ward)
+table_customer.fields.append(field_cust_add_district)
+#table_customer.fields.append(field_cust_city)
+table_customer.fields.append(field_cust_add_city)
+table_customer.fields.append(field_cust_add_area)
+table_customer.fields.append(field_cust_add_state)
 table_customer.fields.append(field_cust_fk_geo_area_list_id)
 table_customer.fields.append(field_cust_fk_cust_type_id)
 
 table_customer.fields_class[field_cust_id] = primary_keys_class
 table_customer.fields_class[field_cust_name] = 'char'
-table_customer.fields_class[field_cust_city] = 'char'
+table_customer.fields_class[field_cust_address] = 'char'
+table_customer.fields_class[field_cust_add_nb] = 'INT'
+table_customer.fields_class[field_cust_add_street] = 'char'
+table_customer.fields_class[field_cust_add_ward] = 'char'
+table_customer.fields_class[field_cust_add_district] = 'char'
+#table_customer.fields_class[field_cust_city] = 'char'
+table_customer.fields_class[field_cust_add_city] = 'char'
+table_customer.fields_class[field_cust_add_area] = 'char'
+table_customer.fields_class[field_cust_add_state] = 'char'
 table_customer.fields_class[field_cust_fk_geo_area_list_id] = primary_keys_class
 table_customer.fields_class[field_cust_fk_cust_type_id] = primary_keys_class
 
 table_customer.fields_size[field_cust_id] = primary_keys_size
 table_customer.fields_size[field_cust_name] = stantard_char_size
-table_customer.fields_size[field_cust_city] = stantard_char_size
+table_customer.fields_size[field_cust_address] = stantard_char_size
+table_customer.fields_size[field_cust_add_nb] = 6
+table_customer.fields_size[field_cust_add_street] = stantard_char_size
+table_customer.fields_size[field_cust_add_ward] = stantard_char_size
+table_customer.fields_size[field_cust_add_district] = stantard_char_size
+#table_customer.fields_size[field_cust_city] = stantard_char_size
+table_customer.fields_size[field_cust_add_city] = stantard_char_size
+table_customer.fields_size[field_cust_add_area] = stantard_char_size
+table_customer.fields_size[field_cust_add_state] = stantard_char_size
 table_customer.fields_size[field_cust_fk_geo_area_list_id] = primary_keys_size
 table_customer.fields_size[field_cust_fk_cust_type_id] = primary_keys_size
 
 table_customer.fields_not_null[field_cust_id] = 1
 table_customer.fields_not_null[field_cust_name] = 1
-table_customer.fields_not_null[field_cust_city] = 0
+table_customer.fields_not_null[field_cust_address] = 0
+table_customer.fields_not_null[field_cust_add_nb] = 0
+table_customer.fields_not_null[field_cust_add_street] = 0
+table_customer.fields_not_null[field_cust_add_ward] = 0
+table_customer.fields_not_null[field_cust_add_district] = 0
+#table_customer.fields_not_null[field_cust_city] = 0
+table_customer.fields_not_null[field_cust_add_city] = 0
+table_customer.fields_not_null[field_cust_add_area] = 0
+table_customer.fields_not_null[field_cust_add_state] = 0
 table_customer.fields_not_null[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_not_null[field_cust_fk_cust_type_id] = 1
 
 table_customer.fields_unique[field_cust_id] = 1
 table_customer.fields_unique[field_cust_name] = 0
-table_customer.fields_unique[field_cust_city] = 0
+table_customer.fields_unique[field_cust_address] = 0
+table_customer.fields_unique[field_cust_add_nb] = 0
+table_customer.fields_unique[field_cust_add_street] = 0
+table_customer.fields_unique[field_cust_add_ward] = 0
+table_customer.fields_unique[field_cust_add_district] = 0
+#table_customer.fields_unique[field_cust_city] = 0
+table_customer.fields_unique[field_cust_add_city] = 0
+table_customer.fields_unique[field_cust_add_area] = 0
+table_customer.fields_unique[field_cust_add_state] = 0
 table_customer.fields_unique[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_unique[field_cust_fk_cust_type_id] = 0
 
 table_customer.fields_auto_increment[field_cust_id] = 1
 table_customer.fields_auto_increment[field_cust_name] = 0
-table_customer.fields_auto_increment[field_cust_city] = 0
+table_customer.fields_auto_increment[field_cust_address] = 0
+table_customer.fields_auto_increment[field_cust_add_nb] = 0
+table_customer.fields_auto_increment[field_cust_add_street] = 0
+table_customer.fields_auto_increment[field_cust_add_ward] = 0
+table_customer.fields_auto_increment[field_cust_add_district] = 0
+#table_customer.fields_auto_increment[field_cust_city] = 0
+table_customer.fields_auto_increment[field_cust_add_city] = 0
+table_customer.fields_auto_increment[field_cust_add_area] = 0
+table_customer.fields_auto_increment[field_cust_add_state] = 0
 table_customer.fields_auto_increment[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_auto_increment[field_cust_fk_cust_type_id] = 0
 
 table_customer.fields_primary_key[field_cust_id] = 1
 table_customer.fields_primary_key[field_cust_name] = 0
-table_customer.fields_primary_key[field_cust_city] = 0
+table_customer.fields_primary_key[field_cust_address] = 0
+table_customer.fields_primary_key[field_cust_add_nb] = 0
+table_customer.fields_primary_key[field_cust_add_street] = 0
+table_customer.fields_primary_key[field_cust_add_ward] = 0
+table_customer.fields_primary_key[field_cust_add_district] = 0
+#table_customer.fields_primary_key[field_cust_city] = 0
+table_customer.fields_primary_key[field_cust_add_city] = 0
+table_customer.fields_primary_key[field_cust_add_area] = 0
+table_customer.fields_primary_key[field_cust_add_state] = 0
 table_customer.fields_primary_key[field_cust_fk_geo_area_list_id] = 0
 table_customer.fields_primary_key[field_cust_fk_cust_type_id] = 0
 
 table_customer.foreign_keys[field_cust_id] = ''
 table_customer.foreign_keys[field_cust_name] = ''
-table_customer.foreign_keys[field_cust_city] = ''
+table_customer.foreign_keys[field_cust_address] = ''
+table_customer.foreign_keys[field_cust_add_nb] = ''
+table_customer.foreign_keys[field_cust_add_street] = ''
+table_customer.foreign_keys[field_cust_add_ward] = ''
+table_customer.foreign_keys[field_cust_add_district] = ''
+#table_customer.foreign_keys[field_cust_city] = ''
+table_customer.foreign_keys[field_cust_add_city] = ''
+table_customer.foreign_keys[field_cust_add_area] = ''
+table_customer.foreign_keys[field_cust_add_state] = ''
 table_customer.foreign_keys[field_cust_fk_geo_area_list_id] = 'customer_fk_geo_area_list_id'
 table_customer.foreign_keys[field_cust_fk_cust_type_id] = 'customer_fk_cust_type_id'
 
 table_customer.fk_tables[field_cust_id] = ''
 table_customer.fk_tables[field_cust_name] = ''
-table_customer.fk_tables[field_cust_city] = ''
+table_customer.fk_tables[field_cust_address] = ''
+table_customer.fk_tables[field_cust_add_nb] = ''
+table_customer.fk_tables[field_cust_add_street] = ''
+table_customer.fk_tables[field_cust_add_ward] = ''
+table_customer.fk_tables[field_cust_add_district] = ''
+#table_customer.fk_tables[field_cust_city] = ''
+table_customer.fk_tables[field_cust_add_city] = ''
+table_customer.fk_tables[field_cust_add_area] = ''
+table_customer.fk_tables[field_cust_add_state] = ''
 table_customer.fk_tables[field_cust_fk_geo_area_list_id] = table_geo_area_list_name
 table_customer.fk_tables[field_cust_fk_cust_type_id] = table_cust_type_name
 
 table_customer.fk_external_references[field_cust_id] = ''
 table_customer.fk_external_references[field_cust_name] = ''
-table_customer.fk_external_references[field_cust_city] = ''
+table_customer.fk_external_references[field_cust_address] = ''
+table_customer.fk_external_references[field_cust_add_nb] = ''
+table_customer.fk_external_references[field_cust_add_street] = ''
+table_customer.fk_external_references[field_cust_add_ward] = ''
+table_customer.fk_external_references[field_cust_add_district] = ''
+#table_customer.fk_external_references[field_cust_city] = ''
+table_customer.fk_external_references[field_cust_add_city] = ''
+table_customer.fk_external_references[field_cust_add_area] = ''
+table_customer.fk_external_references[field_cust_add_state] = ''
 table_customer.fk_external_references[field_cust_fk_geo_area_list_id] = field_geo_area_list_id
 table_customer.fk_external_references[field_cust_fk_cust_type_id] = field_cust_type_id
 
