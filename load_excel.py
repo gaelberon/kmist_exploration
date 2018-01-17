@@ -251,10 +251,7 @@ for tx_idx in range(len(df_pharmacies.index)) :
     #print("Field qui pose probleme: " + df_pop.iloc[tx_idx][pop_col_pharmacy_id])
     
     db_con.createNewEntriesInTableNoPK( myConnection, db_def.table_customer_name,
-                                        [#db_def.field_sanisphere_id,
-                                         #db_def.field_pfizer_id,
-                                         #db_def.field_sanofi_id,
-                                         db_def.field_cust_name,
+                                        [db_def.field_cust_name,
                                          db_def.field_cust_address,
                                          db_def.field_cust_add_nb,
                                          db_def.field_cust_add_street,
@@ -266,19 +263,16 @@ for tx_idx in range(len(df_pharmacies.index)) :
                                          db_def.field_cust_add_state,
                                          db_def.field_cust_fk_geo_area_list_id,
                                          db_def.field_cust_fk_cust_type_id],
-                                        [#str(df_pharmacies.at[tx_idx, pop_col_pharmacy_id]),
-                                         #np.NaN,#str(df_pop.at[tx_idx, pop_col_pfizer]),
-                                         #np.NaN,#str(df_pop.at[tx_idx, pop_col_sanofi]),
-                                         "test_" + str(tx_idx),
-                                         np.NaN,
-                                         np.NaN,
-                                         np.NaN,
-                                         np.NaN,
-                                         np.NaN,
+                                        ["test_" + str(tx_idx),
+                                         np.NaN, # address
+                                         np.NaN, # address number
+                                         np.NaN, # address street
+                                         np.NaN, # address ward
+                                         np.NaN, # address district
                                          str(df_pharmacies.at[tx_idx, pop_col_city_aggregated]),
-                                         np.NaN,
-                                         np.NaN,
-                                         np.NaN,
+                                         np.NaN, # address area
+                                         np.NaN, # address state
+                                         np.NaN, # geo area list id
                                          cust_type_pharma_id])
     
     cust_id_result_set = db_con.selectFromTable( myConnection,
