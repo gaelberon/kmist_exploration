@@ -12,6 +12,127 @@ Created on Fri Dec 14 14:45:32 2017
 import db_definition as db_def
 import numpy as np
 
+# Drop table table_name
+def dropForeignKey( conn, table) :
+
+    stmt = "";
+    for field in table.fields :
+        if table.foreign_keys[field] != "" :
+            stmt = stmt + "set @var=if((SELECT true FROM information_schema.TABLE_CONSTRAINTS ";
+            stmt = stmt + "WHERE CONSTRAINT_SCHEMA = DATABASE() AND ";
+            stmt = stmt + "TABLE_NAME = '" + table.name + "' AND ";
+            stmt = stmt + "CONSTRAINT_NAME = '" + table.foreign_keys[field] + "' AND ";
+            stmt = stmt + "CONSTRAINT_TYPE = 'FOREIGN KEY') = true,'ALTER TABLE " + table.name + " ";
+            stmt = stmt + "drop foreign key " + table.foreign_keys[field] + "','select 1'); ";
+            stmt = stmt + "prepare stmt from @var; ";
+            stmt = stmt + "execute stmt; ";
+            stmt = stmt + "deallocate prepare stmt; ";
+            #stmt = stmt + "system echo 'Drop " + foreign_keys_list[foreign_key] + " done...'; ";
+    
+    print(stmt)
+
+    if stmt != "" :
+        # Initiate the cursor on the connection
+        cur = conn.cursor()
+        # Execute the sql statement
+        cur.execute( stmt )
+
+# Drop table 'table'
+def dropTable( conn, table ) :
+    
+    stmt = "DROP TABLE IF EXISTS `" + table.name + "`;"
+    
+    print(stmt)
+    
+    # DROP TABLE IF EXISTS `Geo_area_type`;
+
+    # Initiate the cursor on the connection
+    cur = conn.cursor()
+    # Execute the sql statement
+    cur.execute( stmt )
+
+# Create table 'table'
+def createTable( conn, table ) :
+    
+    stmt = ""
+    primary_key = ""
+    
+    for field in table.fields :
+        
+        if stmt != "" :
+            stmt = stmt + ", "
+        
+        field_size = ""
+        if table.fields_size[field] != 'nan' :
+            field_size = "(" + str(table.fields_size[field]) + ")"
+        
+        field_not_null = ""
+        if table.fields_not_null[field] :
+            field_not_null = "NOT NULL "
+        
+        field_unique = ""
+        if table.fields_unique[field] :
+            field_unique = "UNIQUE "
+        
+        field_auto_increment = ""
+        if table.fields_auto_increment[field] :
+            field_auto_increment = "AUTO_INCREMENT "
+        
+        if table.fields_primary_key[field] :
+            if primary_key == "" :
+                primary_key = primary_key + "PRIMARY KEY (`" + \
+                              field + "` "
+            else :
+                primary_key = primary_key + ", `" + field + "` "
+        
+        stmt = stmt + "`" + field + "` " + \
+               table.fields_class[field] + field_size + " " + \
+               field_not_null + \
+               field_unique + \
+               field_auto_increment
+    
+    stmt = "CREATE TABLE `" + table.name + "` (" + \
+           stmt + ", " + \
+           primary_key + ")" + \
+           ");"
+    
+    print(stmt)
+    
+    # "CREATE TABLE `{0}` ( \
+    #  `geo_area_type_id` bigint(10) NOT NULL AUTO_INCREMENT, \
+    #  `geo_area_type_char_name` char(50) NOT NULL UNIQUE, \
+    #  PRIMARY KEY (`geo_area_type_id`) \
+    # );".format(table_name)
+
+    # Initiate the cursor on the connection
+    cur = conn.cursor()
+    # Execute the sql statement
+    cur.execute( stmt )
+
+# Create foreign key in table 'table'
+def createForeignKey( conn, table ) :
+    
+    stmt = ""
+    for field in table.fields :
+        if table.foreign_keys[field] != "" :
+            stmt = stmt + "ALTER TABLE `" + table.name + "` "
+            stmt = stmt + "ADD CONSTRAINT `"
+            stmt = stmt + table.foreign_keys[field]
+            stmt = stmt + "` FOREIGN KEY (`" + field + "`) "
+            stmt = stmt + "REFERENCES `"
+            stmt = stmt + table.fk_tables[field]
+            stmt = stmt + "`(`" + table.fk_external_references[field] + "`); "
+    
+    print(stmt)
+    
+    # ALTER TABLE `Product` ADD CONSTRAINT `Product_fk0` FOREIGN KEY (`man_id`) REFERENCES `Manufacturer`(`man_id`);
+    
+    if stmt != "" :
+        # Initiate the cursor on the connection
+        cur = conn.cursor()
+        # Execute the sql statement
+        cur.execute( stmt )
+
 # Create new entry into table table_name without primary key
 def createNewEntriesInTableNoPK( conn, table_name, fields_names_list, values_names_list ) :
     createNewEntriesInTable( conn, table_name, fields_names_list, values_names_list )

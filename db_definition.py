@@ -31,11 +31,13 @@ class db_table:
 ## 
 
 ## Primary keys class
-primary_keys_class = 'bigint'
+primary_keys_class = 'int'
 ## Primary keys size
-primary_keys_size = 10
+primary_keys_size = 11
 ## Standard char size
 stantard_char_size = 50
+## Big char size
+big_char_size = 255
 
 #############################
 ## DATABASE TABLES AND FIELDS
